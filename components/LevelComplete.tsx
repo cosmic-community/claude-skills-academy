@@ -28,13 +28,15 @@ export default function LevelComplete({ level }: LevelCompleteProps) {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-dark-950/90 backdrop-blur-lg p-4"
+      // Changed: Warm Anthropic overlay
+      className="fixed inset-0 z-50 flex items-center justify-center bg-anthro-50/95 backdrop-blur-lg p-4"
     >
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-        className="max-w-md w-full bg-dark-800 rounded-2xl border border-primary-500/30 overflow-hidden card-glow"
+        // Changed: White card with warm border
+        className="max-w-md w-full bg-white rounded-2xl border border-primary-300 overflow-hidden shadow-lg card-glow"
       >
         <div className="p-8 text-center">
           <motion.div
@@ -50,7 +52,7 @@ export default function LevelComplete({ level }: LevelCompleteProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="text-2xl font-bold text-white mb-2"
+            className="text-2xl font-bold text-dark-900 mb-2"
           >
             Level {level.id} Complete!
           </motion.h2>
@@ -59,42 +61,44 @@ export default function LevelComplete({ level }: LevelCompleteProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="text-dark-400 mb-6"
+            className="text-dark-500 mb-6"
           >
-            You&apos;ve mastered <strong className="text-primary-400">{level.name}</strong>!
+            You&apos;ve mastered <strong className="text-primary-600">{level.name}</strong>!
           </motion.p>
 
+          {/* Changed: Warm stats card */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
-            className="bg-dark-700/50 rounded-xl p-4 mb-6"
+            className="bg-anthro-50 rounded-xl p-4 mb-6 border border-anthro-200"
           >
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <p className="text-2xl font-bold text-primary-400">{level.lessons.length}</p>
+                <p className="text-2xl font-bold text-primary-600">{level.lessons.length}</p>
                 <p className="text-xs text-dark-400">Lessons</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-accent-400">{level.quizzes.length}</p>
+                <p className="text-2xl font-bold text-accent-600">{level.quizzes.length}</p>
                 <p className="text-xs text-dark-400">Quizzes</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-orange-400">{level.challenges.length}</p>
+                <p className="text-2xl font-bold text-amber-600">{level.challenges.length}</p>
                 <p className="text-xs text-dark-400">Challenges</p>
               </div>
             </div>
           </motion.div>
 
           {nextLevel && !canAccessNext && (
-            <p className="text-xs text-amber-400 mb-4">
+            <p className="text-xs text-amber-600 mb-4">
               🔒 You need {nextLevel.requiredXP} XP to unlock Level {nextLevel.id}. Keep completing challenges!
             </p>
           )}
 
+          {/* Changed: Dark Anthropic CTA button */}
           <button
             onClick={handleContinue}
-            className="w-full py-3 bg-gradient-to-r from-primary-600 to-accent-600 rounded-xl text-white font-bold hover:shadow-lg hover:shadow-primary-500/25 transition-all duration-300"
+            className="w-full py-3 bg-dark-900 rounded-xl text-white font-bold hover:bg-dark-800 transition-all duration-300"
           >
             {isLastLevel ? '🎓 Graduate from the Academy!' : 'Continue →'}
           </button>

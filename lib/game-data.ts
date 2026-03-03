@@ -1,12 +1,13 @@
 import type { GameLevel, Achievement } from '@/types';
 
+// Changed: Updated level colors to use Anthropic-aligned warm gradients
 export const GAME_LEVELS: GameLevel[] = [
   {
     id: 1,
     name: 'Claude Basics',
     description: 'Learn what Claude is and how to get started with your first interactions.',
     icon: '🌱',
-    color: 'from-green-500 to-emerald-600',
+    color: 'from-emerald-500 to-teal-600',
     requiredXP: 0,
     lessons: [
       {
@@ -144,7 +145,7 @@ This works well because it tells Claude:
     name: 'Prompt Engineering',
     description: 'Master the art of writing effective prompts to get exactly what you need.',
     icon: '⚡',
-    color: 'from-blue-500 to-indigo-600',
+    color: 'from-amber-500 to-orange-600',
     requiredXP: 200,
     lessons: [
       {
@@ -319,7 +320,7 @@ The magic words: **"Think step by step"**, **"Walk me through your reasoning"**,
     name: 'Advanced Conversations',
     description: 'Learn to manage complex, multi-turn conversations and get the most from Claude.',
     icon: '🎯',
-    color: 'from-purple-500 to-violet-600',
+    color: 'from-violet-500 to-purple-600',
     requiredXP: 500,
     lessons: [
       {
@@ -482,7 +483,7 @@ most important points."
     name: 'Power Techniques',
     description: 'Unlock advanced capabilities: structured output, code generation, and analysis.',
     icon: '🔮',
-    color: 'from-orange-500 to-red-600',
+    color: 'from-rose-500 to-pink-600',
     requiredXP: 900,
     lessons: [
       {
@@ -646,8 +647,6 @@ Paste your code and ask Claude to:
   },
 ];
 
-// Changed: Removed 'condition' field from all achievements - the 'description' field
-// already serves this purpose. This fixes all 12 TS2353 errors.
 export const ACHIEVEMENTS: Achievement[] = [
   {
     id: 'first-lesson',
@@ -727,7 +726,6 @@ export function getCurrentLevelData(levelId: number): GameLevel | undefined {
   return GAME_LEVELS.find(l => l.id === levelId);
 }
 
-// Changed: Added missing getAvailableLevels function that LevelMap.tsx imports
 export function getAvailableLevels(totalXP: number): number[] {
   return GAME_LEVELS
     .filter(level => totalXP >= level.requiredXP)

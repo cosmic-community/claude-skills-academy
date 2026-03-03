@@ -73,11 +73,13 @@ export interface GameLevel {
   challenges: Challenge[];
 }
 
-// Changed: Removed condition property - description already serves this purpose
-// and condition was causing persistent TS2353 errors
 export interface Achievement {
   id: string;
   title: string;
   description: string;
   icon: string;
 }
+
+// Changed: Added type aliases for components that import these names
+export type QuizQuestion = Quiz;
+export type PromptChallengeData = Challenge;

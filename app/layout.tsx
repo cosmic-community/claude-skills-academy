@@ -26,7 +26,8 @@ export default function RootLayout({
         />
         <script src="/dashboard-console-capture.js" />
       </head>
-      <body className="font-sans antialiased min-h-screen bg-dark-950">
+      {/* Changed: Warm Anthropic background */}
+      <body className="font-sans antialiased min-h-screen bg-anthro-50">
         {children}
         <CosmicBadge bucketSlug={bucketSlug} />
       </body>

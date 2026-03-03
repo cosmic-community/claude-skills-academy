@@ -98,7 +98,8 @@ function GameContent() {
     const currentLesson = currentLevelData.lessons[lessonIndex];
     if (currentLesson) {
       return (
-        <div className="min-h-screen bg-dark-950">
+        // Changed: Warm Anthropic bg
+        <div className="min-h-screen bg-anthro-50">
           <Navigation />
           <div className="py-8 px-4">
             <button
@@ -106,7 +107,7 @@ function GameContent() {
                 setShowMenu(true);
                 setPhase('menu');
               }}
-              className="mb-6 ml-4 text-sm text-dark-400 hover:text-white transition-colors flex items-center gap-1 max-w-7xl mx-auto"
+              className="mb-6 ml-4 text-sm text-dark-400 hover:text-dark-900 transition-colors flex items-center gap-1 max-w-7xl mx-auto"
             >
               ← Back to Levels
             </button>
@@ -119,7 +120,7 @@ function GameContent() {
 
   if (state.gamePhase === 'quiz' && currentLevelData) {
     return (
-      <div className="min-h-screen bg-dark-950">
+      <div className="min-h-screen bg-anthro-50">
         <Navigation />
         <div className="py-8 px-4">
           <button
@@ -127,7 +128,7 @@ function GameContent() {
               setShowMenu(true);
               setPhase('menu');
             }}
-            className="mb-6 ml-4 text-sm text-dark-400 hover:text-white transition-colors flex items-center gap-1 max-w-7xl mx-auto"
+            className="mb-6 ml-4 text-sm text-dark-400 hover:text-dark-900 transition-colors flex items-center gap-1 max-w-7xl mx-auto"
           >
             ← Back to Levels
           </button>
@@ -141,7 +142,7 @@ function GameContent() {
     const challenge = currentLevelData.challenges[0];
     if (challenge) {
       return (
-        <div className="min-h-screen bg-dark-950">
+        <div className="min-h-screen bg-anthro-50">
           <Navigation />
           <div className="py-8 px-4">
             <button
@@ -149,7 +150,7 @@ function GameContent() {
                 setShowMenu(true);
                 setPhase('menu');
               }}
-              className="mb-6 ml-4 text-sm text-dark-400 hover:text-white transition-colors flex items-center gap-1 max-w-7xl mx-auto"
+              className="mb-6 ml-4 text-sm text-dark-400 hover:text-dark-900 transition-colors flex items-center gap-1 max-w-7xl mx-auto"
             >
               ← Back to Levels
             </button>
@@ -162,7 +163,8 @@ function GameContent() {
 
   // Main menu / level map
   return (
-    <div className="min-h-screen bg-dark-950">
+    // Changed: Warm Anthropic bg
+    <div className="min-h-screen bg-anthro-50">
       <Navigation />
 
       <HeroSection
@@ -185,7 +187,8 @@ function GameContent() {
           className="w-full flex items-center justify-between mb-6"
         >
           <div>
-            <h2 className="text-2xl font-bold text-white">🏆 Achievements</h2>
+            {/* Changed: Dark text for warm bg */}
+            <h2 className="text-2xl font-bold text-dark-900">🏆 Achievements</h2>
             <p className="text-sm text-dark-400">
               {state.unlockedAchievements.length}/{ACHIEVEMENTS.length} unlocked
             </p>
@@ -207,28 +210,30 @@ function GameContent() {
         )}
       </section>
 
-      {/* Footer */}
-      <footer className="max-w-5xl mx-auto px-4 py-8 border-t border-dark-800/50">
+      {/* Footer - Changed: Warm border */}
+      <footer className="max-w-5xl mx-auto px-4 py-8 border-t border-anthro-200">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-lg">🎓</span>
-            <span className="text-sm text-dark-400">Claude Skills Academy</span>
+            <div className="w-6 h-6 rounded bg-dark-900 flex items-center justify-center">
+              <span className="text-white text-xs font-bold">C</span>
+            </div>
+            <span className="text-sm text-dark-500">Claude Skills Academy</span>
           </div>
           <div className="flex items-center gap-4">
             <a
               href="https://www.anthropic.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-dark-500 hover:text-dark-300 transition-colors"
+              className="text-xs text-dark-400 hover:text-dark-600 transition-colors"
             >
               Powered by Claude
             </a>
-            <span className="text-dark-700">•</span>
+            <span className="text-dark-300">•</span>
             <a
               href="https://www.cosmicjs.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-dark-500 hover:text-dark-300 transition-colors"
+              className="text-xs text-dark-400 hover:text-dark-600 transition-colors"
             >
               Built with Cosmic
             </a>
@@ -239,7 +244,7 @@ function GameContent() {
                 dispatch({ type: 'RESET_GAME' });
               }
             }}
-            className="text-xs text-dark-600 hover:text-red-400 transition-colors"
+            className="text-xs text-dark-400 hover:text-red-500 transition-colors"
           >
             Reset Progress
           </button>
