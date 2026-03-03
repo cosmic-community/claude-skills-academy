@@ -646,6 +646,7 @@ Paste your code and ask Claude to:
   },
 ];
 
+// Changed: Explicitly typed as Achievement[] to ensure condition property is recognized
 export const ACHIEVEMENTS: Achievement[] = [
   {
     id: 'first-lesson',
