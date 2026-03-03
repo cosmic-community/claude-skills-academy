@@ -646,91 +646,80 @@ Paste your code and ask Claude to:
   },
 ];
 
-// Changed: Explicitly typed as Achievement[] to ensure condition property is recognized
+// Changed: Removed 'condition' field from all achievements - the 'description' field
+// already serves this purpose. This fixes all 12 TS2353 errors.
 export const ACHIEVEMENTS: Achievement[] = [
   {
     id: 'first-lesson',
     title: 'First Steps',
     description: 'Complete your first lesson',
     icon: '🎯',
-    condition: 'Complete 1 lesson',
   },
   {
     id: 'quiz-master',
     title: 'Quiz Master',
     description: 'Answer all quizzes correctly in a level',
     icon: '🧠',
-    condition: 'Complete all quizzes in any level',
   },
   {
     id: 'prompt-crafter',
     title: 'Prompt Crafter',
     description: 'Complete your first challenge',
     icon: '✍️',
-    condition: 'Complete 1 challenge',
   },
   {
     id: 'level-up',
     title: 'Level Up!',
     description: 'Complete an entire level',
     icon: '⭐',
-    condition: 'Complete all content in a level',
   },
   {
     id: 'xp-100',
     title: 'Century Club',
     description: 'Earn 100 XP',
     icon: '💯',
-    condition: 'Earn 100 total XP',
   },
   {
     id: 'xp-500',
     title: 'Half K',
     description: 'Earn 500 XP',
     icon: '🔥',
-    condition: 'Earn 500 total XP',
   },
   {
     id: 'xp-1000',
     title: 'Grand Master',
     description: 'Earn 1000 XP',
     icon: '👑',
-    condition: 'Earn 1000 total XP',
   },
   {
     id: 'all-lessons',
     title: 'Scholar',
     description: 'Complete all lessons',
     icon: '📚',
-    condition: 'Complete every lesson',
   },
   {
     id: 'all-challenges',
     title: 'Challenger',
     description: 'Complete all challenges',
     icon: '🏆',
-    condition: 'Complete every challenge',
   },
   {
     id: 'perfectionist',
     title: 'Perfectionist',
     description: 'Complete everything in the game',
     icon: '💎',
-    condition: 'Complete all lessons, quizzes, and challenges',
   },
   {
     id: 'speed-learner',
     title: 'Speed Learner',
     description: 'Complete 3 lessons',
     icon: '⚡',
-    condition: 'Complete 3 lessons',
   },
   {
     id: 'dedicated',
     title: 'Dedicated',
     description: 'Complete 5 lessons',
     icon: '🎓',
-    condition: 'Complete 5 lessons',
   },
 ];
 

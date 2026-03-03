@@ -73,11 +73,11 @@ export interface GameLevel {
   challenges: Challenge[];
 }
 
-// Changed: Achievement interface includes condition property for achievement descriptions
+// Changed: Removed condition property - description already serves this purpose
+// and condition was causing persistent TS2353 errors
 export interface Achievement {
   id: string;
   title: string;
   description: string;
   icon: string;
-  condition: string;
 }
