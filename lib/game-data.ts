@@ -632,4 +632,197 @@ Paste your code and ask Claude to:
           'Handle edge cases (e.g., missing allergen info)',
           'Include a sample menu description to parse',
         ],
-        exampleGoodPrompt: 'Parse this restaurant menu item into the following JSON structure:\n\n
+        exampleGoodPrompt: 'Parse this restaurant menu item into the following JSON structure:\n\n{\n  "name": "string",\n  "description": "string",\n  "price": number,\n  "currency": "string",\n  "category": "appetizer" | "main" | "dessert" | "drink",\n  "dietary_tags": ["vegetarian", "vegan", "gluten-free", etc.],\n  "allergens": ["nuts", "dairy", "gluten", etc.],\n  "spice_level": 0-5,\n  "estimated_prep_time_minutes": number\n}\n\nIf allergen info is not mentioned, use an empty array.\nIf spice level is not clear, estimate based on the description.\n\nMenu item: "Spicy Thai Basil Chicken (Pad Krapow Gai) - $14.99 - Wok-fried minced chicken with holy basil, Thai chilies, garlic, and a fried egg on top. Served with jasmine rice. Contains: eggs, soy, fish sauce."',
+        exampleBadPrompt: 'Turn this menu into JSON',
+        evaluationCriteria: [
+          'Defines a complete JSON schema',
+          'Specifies data types for each field',
+          'Handles edge cases explicitly',
+          'Includes sample data to parse',
+        ],
+        xpReward: 150,
+      },
+    ],
+  },
+];
+
+export const ACHIEVEMENTS: Achievement[] = [
+  {
+    id: 'first-lesson',
+    title: 'First Steps',
+    description: 'Complete your first lesson',
+    icon: '🎯',
+    condition: 'Complete 1 lesson',
+  },
+  {
+    id: 'quiz-master',
+    title: 'Quiz Master',
+    description: 'Answer all quizzes correctly in a level',
+    icon: '🧠',
+    condition: 'Complete all quizzes in any level',
+  },
+  {
+    id: 'prompt-crafter',
+    title: 'Prompt Crafter',
+    description: 'Complete your first challenge',
+    icon: '✍️',
+    condition: 'Complete 1 challenge',
+  },
+  {
+    id: 'level-up',
+    title: 'Level Up!',
+    description: 'Complete an entire level',
+    icon: '⭐',
+    condition: 'Complete all content in a level',
+  },
+  {
+    id: 'xp-100',
+    title: 'Century Club',
+    description: 'Earn 100 XP',
+    icon: '💯',
+    condition: 'Earn 100 total XP',
+  },
+  {
+    id: 'xp-500',
+    title: 'Half K',
+    description: 'Earn 500 XP',
+    icon: '🔥',
+    condition: 'Earn 500 total XP',
+  },
+  {
+    id: 'xp-1000',
+    title: 'Grand Master',
+    description: 'Earn 1000 XP',
+    icon: '👑',
+    condition: 'Earn 1000 total XP',
+  },
+  {
+    id: 'all-lessons',
+    title: 'Scholar',
+    description: 'Complete all lessons',
+    icon: '📚',
+    condition: 'Complete every lesson',
+  },
+  {
+    id: 'all-challenges',
+    title: 'Challenger',
+    description: 'Complete all challenges',
+    icon: '🏆',
+    condition: 'Complete every challenge',
+  },
+  {
+    id: 'perfectionist',
+    title: 'Perfectionist',
+    description: 'Complete everything in the game',
+    icon: '💎',
+    condition: 'Complete all lessons, quizzes, and challenges',
+  },
+  {
+    id: 'speed-learner',
+    title: 'Speed Learner',
+    description: 'Complete 3 lessons',
+    icon: '⚡',
+    condition: 'Complete 3 lessons',
+  },
+  {
+    id: 'dedicated',
+    title: 'Dedicated',
+    description: 'Complete 5 lessons',
+    icon: '🎓',
+    condition: 'Complete 5 lessons',
+  },
+];
+
+export function getCurrentLevelData(levelId: number): GameLevel | undefined {
+  return GAME_LEVELS.find(l => l.id === levelId);
+}
+
+interface AchievementCheckState {
+  totalXP: number;
+  completedLessons: string[];
+  completedQuizzes: string[];
+  completedChallenges: string[];
+  currentLevel: number;
+  unlockedAchievements: string[];
+}
+
+export function checkAchievements(state: AchievementCheckState): string[] {
+  const newAchievements: string[] = [];
+
+  const totalLessons = GAME_LEVELS.reduce((acc, l) => acc + l.lessons.length, 0);
+  const totalChallenges = GAME_LEVELS.reduce((acc, l) => acc + l.challenges.length, 0);
+  const totalQuizzes = GAME_LEVELS.reduce((acc, l) => acc + l.quizzes.length, 0);
+
+  // First lesson
+  if (state.completedLessons.length >= 1 && !state.unlockedAchievements.includes('first-lesson')) {
+    newAchievements.push('first-lesson');
+  }
+
+  // Speed learner - 3 lessons
+  if (state.completedLessons.length >= 3 && !state.unlockedAchievements.includes('speed-learner')) {
+    newAchievements.push('speed-learner');
+  }
+
+  // Dedicated - 5 lessons
+  if (state.completedLessons.length >= 5 && !state.unlockedAchievements.includes('dedicated')) {
+    newAchievements.push('dedicated');
+  }
+
+  // Quiz master - all quizzes in any level
+  for (const level of GAME_LEVELS) {
+    const allQuizzesDone = level.quizzes.every(q => state.completedQuizzes.includes(q.id));
+    if (allQuizzesDone && level.quizzes.length > 0 && !state.unlockedAchievements.includes('quiz-master')) {
+      newAchievements.push('quiz-master');
+      break;
+    }
+  }
+
+  // Prompt crafter - first challenge
+  if (state.completedChallenges.length >= 1 && !state.unlockedAchievements.includes('prompt-crafter')) {
+    newAchievements.push('prompt-crafter');
+  }
+
+  // Level up - complete all content in a level
+  for (const level of GAME_LEVELS) {
+    const allLessons = level.lessons.every(l => state.completedLessons.includes(l.id));
+    const allQuizzes = level.quizzes.every(q => state.completedQuizzes.includes(q.id));
+    const allChallenges = level.challenges.every(c => state.completedChallenges.includes(c.id));
+    if (allLessons && allQuizzes && allChallenges && !state.unlockedAchievements.includes('level-up')) {
+      newAchievements.push('level-up');
+      break;
+    }
+  }
+
+  // XP milestones
+  if (state.totalXP >= 100 && !state.unlockedAchievements.includes('xp-100')) {
+    newAchievements.push('xp-100');
+  }
+  if (state.totalXP >= 500 && !state.unlockedAchievements.includes('xp-500')) {
+    newAchievements.push('xp-500');
+  }
+  if (state.totalXP >= 1000 && !state.unlockedAchievements.includes('xp-1000')) {
+    newAchievements.push('xp-1000');
+  }
+
+  // All lessons
+  if (state.completedLessons.length >= totalLessons && !state.unlockedAchievements.includes('all-lessons')) {
+    newAchievements.push('all-lessons');
+  }
+
+  // All challenges
+  if (state.completedChallenges.length >= totalChallenges && !state.unlockedAchievements.includes('all-challenges')) {
+    newAchievements.push('all-challenges');
+  }
+
+  // Perfectionist - everything
+  if (
+    state.completedLessons.length >= totalLessons &&
+    state.completedQuizzes.length >= totalQuizzes &&
+    state.completedChallenges.length >= totalChallenges &&
+    !state.unlockedAchievements.includes('perfectionist')
+  ) {
+    newAchievements.push('perfectionist');
+  }
+
+  return newAchievements;
+}
