@@ -737,6 +737,13 @@ export function getCurrentLevelData(levelId: number): GameLevel | undefined {
   return GAME_LEVELS.find(l => l.id === levelId);
 }
 
+// Changed: Added missing getAvailableLevels function that LevelMap.tsx imports
+export function getAvailableLevels(totalXP: number): number[] {
+  return GAME_LEVELS
+    .filter(level => totalXP >= level.requiredXP)
+    .map(level => level.id);
+}
+
 interface AchievementCheckState {
   totalXP: number;
   completedLessons: string[];
