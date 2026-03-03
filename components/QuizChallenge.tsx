@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-// Changed: Use Quiz type directly instead of non-existent QuizQuestion
+// Changed: Import Quiz type from types
 import type { Quiz } from '@/types';
 import { useGame } from '@/components/GameProvider';
 
@@ -86,7 +86,8 @@ export default function QuizChallenge({ quizzes, onComplete }: QuizChallengeProp
           <h3 className="text-xl font-bold text-dark-900 mb-6">{currentQuiz.question}</h3>
 
           <div className="space-y-3">
-            {currentQuiz.options.map((option, idx) => {
+            {/* Changed: Added explicit types for option and idx parameters */}
+            {currentQuiz.options.map((option: string, idx: number) => {
               // Changed: Warm Anthropic option styles
               let optionStyle = 'bg-anthro-50 border-anthro-200 hover:border-primary-300 hover:bg-anthro-100';
 

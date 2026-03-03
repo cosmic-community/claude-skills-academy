@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-// Changed: Use Challenge type directly instead of non-existent PromptChallengeData
+// Changed: Import Challenge type from types
 import type { Challenge } from '@/types';
 import { useGame } from '@/components/GameProvider';
 
@@ -119,7 +119,8 @@ export default function PromptChallenge({ challenge, onComplete }: PromptChallen
                 <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
                   <h4 className="text-sm font-semibold text-blue-700 mb-2">💡 Hints:</h4>
                   <ul className="space-y-1">
-                    {challenge.hints.map((hint, idx) => (
+                    {/* Changed: Added explicit types for hint and idx parameters */}
+                    {challenge.hints.map((hint: string, idx: number) => (
                       <li key={idx} className="text-sm text-dark-600 flex items-start gap-2">
                         <span className="text-blue-500 mt-0.5">•</span>{hint}
                       </li>
@@ -170,7 +171,8 @@ export default function PromptChallenge({ challenge, onComplete }: PromptChallen
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <h4 className="text-sm font-semibold text-dark-900 mb-3">📊 Self-Evaluation — Check the criteria your prompt meets:</h4>
               <div className="space-y-2 mb-4">
-                {challenge.evaluationCriteria.map((criteria, idx) => (
+                {/* Changed: Added explicit types for criteria and idx parameters */}
+                {challenge.evaluationCriteria.map((criteria: string, idx: number) => (
                   <button
                     key={idx}
                     onClick={() => handleToggleCriteria(idx)}
